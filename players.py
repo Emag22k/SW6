@@ -117,18 +117,6 @@ class HardBotPlayer(MediumBotPlayer): #Хард бот (Умеет все)
         super().__init__(name)
         self.invalid_shots = set()  # Клетки, куда стрелять бессмысленно
 
-    def mark_invalid_shots(self, x, y, enemy): # клетки вокруг потопленного корабля как бесполезные для стрельбы
-        already_marked = set()
-        for ship in enemy.board.ships:
-            if ship.is_sunk() and tuple(ship.coordinates) not in already_marked:
-                for sx, sy in ship.coordinates:
-                    for dx in range(-1, 2):
-                         for dy in range(-1, 2):
-                            nx, ny = sx + dx, sy + dy
-                            if 0 <= nx < Board.SIZE and 0 <= ny < Board.SIZE:
-                                self.invalid_shots.add((nx, ny))
-                            already_marked.add(tuple(ship.coordinates))
-
     def make_move(self, enemy):
         print(f"{self.name} делает ход (сложный бот)...")
 
@@ -166,6 +154,16 @@ class HardBotPlayer(MediumBotPlayer): #Хард бот (Умеет все)
                 break
 
             return
+
+    def mark_invalid_shots(self, x, y, enemy):  # клетки вокруг потопленного корабля как бесполезные для стрельбы
+        for ship in enemy.board.ships:
+            if ship.is_sunk():
+                for sx, sy in ship.coordinates:
+                    for dx in range(-1, 2):
+                        for dy in range(-1, 2):
+                            nx, ny = sx + dx, sy + dy
+                            if 0 <= nx < Board.SIZE and 0 <= ny < Board.SIZE:
+                                self.invalid_shots.add((nx, ny))
 
 
 
