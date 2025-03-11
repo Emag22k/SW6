@@ -108,7 +108,7 @@ class Board:
     def all_ships_sunk(self):
         return all(ship.is_sunk() for ship in self.ships)
 
-    def display(self, show_ships=False):
+    def display(self, show_ships=True):
         """ Отображает поле в консоли """
         print("  " + "  ".join(str(i) for i in range(self.SIZE)))
         for y in range(self.SIZE):

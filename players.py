@@ -45,7 +45,9 @@ class HumanPlayer(Player): #Класс для игрок-человек
                     print("Корабль потоплен!")
                 else:
                     print("Мимо!")
-                break
+
+                return result
+
             except ValueError:
                 print("Некорректный ввод.")
 
@@ -109,7 +111,7 @@ class MediumBotPlayer(BotPlayer): #Средний бот
                 print(f"{self.name} победил!")
                 break
 
-            return  # Завершение хода
+            return result  # Завершение хода
 
 
 class HardBotPlayer(MediumBotPlayer): #Хард бот (Умеет все)
@@ -153,7 +155,7 @@ class HardBotPlayer(MediumBotPlayer): #Хард бот (Умеет все)
                 print(f"{self.name} победил!")
                 break
 
-            return
+            return result
 
     def mark_invalid_shots(self, x, y, enemy):  # клетки вокруг потопленного корабля как бесполезные для стрельбы
         for ship in enemy.board.ships:
